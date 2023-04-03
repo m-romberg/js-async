@@ -1,6 +1,6 @@
 "use strict";
 
-const $results = $("#number-results");
+const $results = $("#number-batch-results");
 const NUMBERS_URL = "http://numbersapi.com/";
 
 // make the request
