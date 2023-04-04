@@ -1,10 +1,32 @@
 "use strict";
 
 const $resultsBatchDiv = $("#number-batch-results");
+const $resultNumDiv = $("#number-results");
 const $favNumDiv = $("#number-fav-results");
+
 const NUMBERS_URL = "http://numbersapi.com/";
 
-async function get_multiple_nums_fact() {
+/**
+ * getNumFact: return one fact for one number and append to DOM
+ */
+async function getNumFact() {
+  const resp = await axios.get(`${NUMBERS_URL}90?json`);
+  const num_fact = resp.data;
+
+  const $numHeading = $(`<h2>"Fact on ONE number"</h2>`);
+  $resultNumDiv.append($numHeading);
+
+    const $fact_html = $(`
+    <p id="fact-${num_fact["number"]}">${num_fact["text"]}</p>
+    `);
+    $resultNumDiv.append($fact_html);
+  }
+  getNumFact();
+
+/**
+ * getMultipleNumFacts: return one fact for four numbers and append to DOM
+ */
+async function getMultipleNumFacts() {
   const resp = await axios.get(`${NUMBERS_URL}31,33,90?json`);
   const nums_fact = resp.data;
 
@@ -17,11 +39,14 @@ async function get_multiple_nums_fact() {
   }
 }
 
-get_multiple_nums_fact();
+getMultipleNumFacts();
 
 //  #QUESTION: How to catch/resend request if any of your promises fails? Try/catch
 
-async function get_facts_fav_num() {
+/**
+ * getFavNumFacts: return four facts for one number and append to DOM
+ */
+async function getFavNumFacts() {
   const fact1P = axios(`${NUMBERS_URL}33`);
   const fact2P = axios(`${NUMBERS_URL}33`);
   const fact3P = axios(`${NUMBERS_URL}33`);
@@ -38,4 +63,4 @@ async function get_facts_fav_num() {
   }
 }
 
-get_facts_fav_num();
+getFavNumFacts();
