@@ -1,6 +1,6 @@
 "use strict";
 
-const $results = $("#number-batch-results");
+const $resultsBatchDiv = $("#number-batch-results");
 const $favNumDiv = $("#number-fav-results");
 const NUMBERS_URL = "http://numbersapi.com/";
 
@@ -16,9 +16,12 @@ async function get_multiple_nums_fact(){
   const resp = await axios.get(`${NUMBERS_URL}31,33,90?json`);
   const nums_fact = resp.data;
 
+  const $batchNumHeading = $(`<h2>"Facts on multiple numbers"</h2>`);
+  $resultsBatchDiv.append($batchNumHeading);
+
   for (let num in nums_fact){
     const $fact_html = $(`<p id="fact-${num}">${nums_fact[num]}</p>`);
-    $results.append($fact_html);
+    $resultsBatchDiv.append($fact_html);
   }
 }
 
