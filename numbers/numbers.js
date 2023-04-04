@@ -16,19 +16,20 @@ async function getNumFact() {
   const $numHeading = $(`<h2>"Fact on ONE number"</h2>`);
   $resultNumDiv.append($numHeading);
 
-    const $fact_html = $(`
+  const $fact_html = $(`
     <p id="fact-${num_fact["number"]}">${num_fact["text"]}</p>
     `);
-    $resultNumDiv.append($fact_html);
-  }
-  getNumFact();
+  $resultNumDiv.append($fact_html);
+}
+getNumFact();
 
 /**
- * getMultipleNumFacts: return one fact for four numbers and append to DOM
+ * getMultipleNumFacts: return one fact for three numbers and append to DOM
  */
+//TODO: FIX THE DANG SNAKE CASE, USE A PARAMETER FOR NUMS rather than hardcode
 async function getMultipleNumFacts() {
   const resp = await axios.get(`${NUMBERS_URL}31,33,90?json`);
-  const nums_fact = resp.data;
+  const nums_fact = resp.data; //numtofact idea for naming objects
 
   const $batchNumHeading = $(`<h2>"Facts on multiple numbers"</h2>`);
   $resultsBatchDiv.append($batchNumHeading);
@@ -57,7 +58,10 @@ async function getFavNumFacts() {
   const $favNumHeading = $(`<h2>"Facts on my Fav num"</h2>`);
   $favNumDiv.append($favNumHeading);
 
+  //call p resolved or r bc no longer a promise
+  //
   for (const p of results) {
+    // if p.status = fulfilled... how to check if a promise was unfulfilled
     const $favNumEl = $(`<p>${p.value.data}</p>`);
     $favNumDiv.append($favNumEl);
   }
